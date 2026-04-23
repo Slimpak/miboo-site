@@ -1,41 +1,77 @@
 <template>
-  <div class="container">
-    <div class="blob blob-1" />
-    <div class="blob blob-2" />
-    <div class="blob blob-3" />
+  <div class="page">
 
-    <main class="content">
-      <div class="logo">Miboo</div>
-      <h1 class="headline">Coming Soon</h1>
-      <p class="tagline">Something exciting is on its way. Stay tuned.</p>
+    <!-- Scrolling background rows -->
+    <div class="bg" aria-hidden="true">
+      <div v-for="i in 11" :key="i" class="row" :class="`row-${i}`">
+        <div class="track" :class="{ reverse: i % 2 === 0 }">
+          <span class="track-inner">{{ bgText }}</span>
+          <span class="track-inner">{{ bgText }}</span>
+        </div>
+      </div>
+    </div>
 
-      <form v-if="!submitted" class="form" @submit.prevent="handleSubmit">
-        <input
-          v-model="email"
-          type="email"
-          placeholder="Enter your email"
-          required
-          class="input"
-        />
-        <button type="submit" class="button">Notify me</button>
-      </form>
-      <p v-else class="thanks">Thank you! We'll keep you posted. ✦</p>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-text">Miboo</span>
+        <div class="logo-drip-bar">
+          <i class="logo-drip" style="--x:18%;--h:16px;--w:8px" />
+          <i class="logo-drip" style="--x:32%;--h:26px;--w:11px" />
+          <i class="logo-drip" style="--x:48%;--h:14px;--w:7px" />
+          <i class="logo-drip" style="--x:62%;--h:22px;--w:9px" />
+          <i class="logo-drip" style="--x:76%;--h:18px;--w:8px" />
+        </div>
+      </div>
+      <div class="badge">
+        <span class="badge-dot" />
+        Concept draft
+      </div>
+    </header>
+
+    <!-- Center content -->
+    <main class="main">
+
+      <!-- Sticker: black panel + drips as one unit -->
+      <div class="sticker">
+        <div class="sticker-body">
+          <h1 class="cs">Coming<br>Soon</h1>
+        </div>
+        <div class="sticker-drips">
+          <i class="drip" style="--x:8%;  --h:44px; --w:12px" />
+          <i class="drip" style="--x:18%; --h:72px; --w:16px" />
+          <i class="drip" style="--x:30%; --h:38px; --w:10px" />
+          <i class="drip" style="--x:42%; --h:60px; --w:14px" />
+          <i class="drip" style="--x:54%; --h:50px; --w:13px" />
+          <i class="drip" style="--x:65%; --h:80px; --w:17px" />
+          <i class="drip" style="--x:76%; --h:42px; --w:11px" />
+          <i class="drip" style="--x:87%; --h:58px; --w:13px" />
+          <i class="drip" style="--x:95%; --h:34px; --w:9px" />
+        </div>
+      </div>
+
+      <p class="tagline">A playful collectible world is on the way.</p>
+
+      <button class="btn">
+        Notify me
+        <span class="btn-icon">
+          <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
+            <path d="M3 8h10M9 3l5 5-5 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
     </main>
+
   </div>
 </template>
 
 <script setup lang="ts">
-const email = ref('')
-const submitted = ref(false)
-
-function handleSubmit() {
-  if (email.value) {
-    submitted.value = true
-  }
-}
+const bgText = 'Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   '
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Barlow+Condensed:ital,wght@1,700;1,800&family=Inter:wght@400;500;600&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -43,163 +79,312 @@ function handleSubmit() {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   overflow: hidden;
+  background: #05051a;
 }
 
-.container {
+/* ─── Page ─── */
+.page {
   min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  /* Electric blue radial gradient — matches the vibrant blue glow in the ref */
+  background:
+    radial-gradient(ellipse 90% 70% at 28% 50%, rgba(30, 30, 180, 0.55) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 75% 55%, rgba(80, 20, 160, 0.3) 0%, transparent 60%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, #0c0c50 0%, #08083a 40%, #050528 75%, #030318 100%);
+}
+
+/* ─── Scrolling background ─── */
+.bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  user-select: none;
+}
+
+.row {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.8vw, 2.6rem);
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+/* Alternating blue/purple rows with 2 orange accent rows */
+.row-1  { color: #5566ff; opacity: 0.28; }
+.row-2  { color: #7755ee; opacity: 0.22; }
+.row-3  { color: #4455ee; opacity: 0.30; }
+.row-4  { color: #dd6622; opacity: 0.28; }
+.row-5  { color: #6644dd; opacity: 0.24; }
+.row-6  { color: #4466ff; opacity: 0.32; }
+.row-7  { color: #8844ee; opacity: 0.22; }
+.row-8  { color: #ee7722; opacity: 0.26; }
+.row-9  { color: #5577ff; opacity: 0.28; }
+.row-10 { color: #6655ee; opacity: 0.24; }
+.row-11 { color: #3355dd; opacity: 0.30; }
+
+.track {
+  display: flex;
+  animation: scroll-left 32s linear infinite;
+}
+
+.track.reverse {
+  animation: scroll-right 38s linear infinite;
+}
+
+.track-inner {
+  flex-shrink: 0;
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ─── Header ─── */
+.header {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 1.4rem 1.75rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* ─── Logo ─── */
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.logo-text {
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.45rem;
+  padding: 0.5rem 1.25rem 0.6rem;
+  border-radius: 12px 12px 0 0;
+  line-height: 1;
+  display: block;
+}
+
+/* Thin bar at the base of the logo that the drips hang from */
+.logo-drip-bar {
+  height: 8px;
+  background: #0a0a0a;
+  border-radius: 0 0 4px 4px;
+  position: relative;
+  overflow: visible;
+}
+
+.logo-drip {
+  position: absolute;
+  top: 100%;
+  left: var(--x);
+  width: var(--w);
+  height: var(--h);
+  background: #0a0a0a;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  transform: translateX(-50%);
+  display: block;
+}
+
+.logo-drip::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--w) + 2px);
+  height: calc(var(--w) + 2px);
+  border-radius: 50%;
+  background: #0a0a0a;
+}
+
+/* ─── Badge ─── */
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(8, 8, 28, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.42rem 1rem;
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  letter-spacing: 0.01em;
+  margin-top: 0.15rem;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f97316;
+  flex-shrink: 0;
+}
+
+/* ─── Main ─── */
+.main {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 2rem 5rem;
+  animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Sticker (black panel + drips as one unit) ─── */
+.sticker {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+}
+
+.sticker-body {
+  background: #0a0a0a;
+  border-radius: 28px 28px 0 0;
+  padding: 1.25rem 2.5rem 1.5rem;
+}
+
+.cs {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: clamp(5rem, 13vw, 10.5rem);
+  line-height: 0.9;
+  color: #ffffff;
+  -webkit-text-stroke: clamp(6px, 1vw, 10px) #0a0a0a;
+  paint-order: stroke fill;
+  letter-spacing: -0.01em;
+}
+
+/* The drip bar — black strip that the drips hang from */
+.sticker-drips {
+  background: #0a0a0a;
+  position: relative;
+  height: 16px; /* thick base */
+  border-radius: 0 0 8px 8px;
+  overflow: visible;
+}
+
+/* Drips hang down from the sticker-drips bar */
+.drip {
+  position: absolute;
+  top: 100%;
+  left: var(--x);
+  width: var(--w);
+  height: var(--h);
+  background: #0a0a0a;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  transform: translateX(-50%);
+  display: block;
+}
+
+.drip::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--w) + 3px);
+  height: calc(var(--w) + 3px);
+  border-radius: 50%;
+  background: #0a0a0a;
+}
+
+/* ─── Tagline ─── */
+.tagline {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1rem;
+  text-align: center;
+  max-width: 360px;
+  line-height: 1.65;
+  margin-top: 1rem;
+}
+
+/* ─── Button ─── */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: #f97316;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.65rem 0.65rem 0.65rem 1.75rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  letter-spacing: 0.01em;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+  filter: brightness(0.93);
+}
+
+.btn-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #111111;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #07070f;
-  position: relative;
-  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.45;
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .row { font-size: clamp(1.1rem, 4vw, 1.7rem); opacity: 0.18; }
+  .header { padding: 1rem 1.25rem; }
+  .sticker-body { padding: 1rem 1.5rem 1.25rem; }
+  .main { gap: 1.5rem; padding-bottom: 3rem; }
+  .cs { -webkit-text-stroke: clamp(5px, 1.5vw, 8px) #0a0a0a; }
 }
 
-.blob-1 {
-  width: 650px;
-  height: 650px;
-  background: radial-gradient(circle, #7c3aed, #4f46e5);
-  top: -220px;
-  left: -120px;
-  animation: float-1 14s ease-in-out infinite;
-}
-
-.blob-2 {
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, #ec4899, #8b5cf6);
-  bottom: -160px;
-  right: -120px;
-  animation: float-2 16s ease-in-out infinite;
-}
-
-.blob-3 {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, #06b6d4, #3b82f6);
-  top: 50%;
-  left: 50%;
-  animation: float-3 18s ease-in-out infinite;
-}
-
-@keyframes float-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(40px, -40px) scale(1.06); }
-  66% { transform: translate(-25px, 25px) scale(0.95); }
-}
-
-@keyframes float-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-35px, 35px) scale(0.94); }
-  66% { transform: translate(30px, -30px) scale(1.05); }
-}
-
-@keyframes float-3 {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  33% { transform: translate(calc(-50% + 35px), calc(-50% - 35px)) scale(1.06); }
-  66% { transform: translate(calc(-50% - 25px), calc(-50% + 25px)) scale(0.95); }
-}
-
-.content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 2rem;
-}
-
-.logo {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 1.75rem;
-}
-
-.headline {
-  font-size: clamp(3.5rem, 11vw, 8rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  margin-bottom: 1.25rem;
-  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.45));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.tagline {
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 2.75rem;
-  max-width: 380px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.65;
-}
-
-.form {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.input {
-  padding: 0.9rem 1.3rem;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
-  font-size: 0.95rem;
-  width: 280px;
-  outline: none;
-  backdrop-filter: blur(12px);
-  transition: border-color 0.2s;
-}
-
-.input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.input:focus {
-  border-color: rgba(255, 255, 255, 0.38);
-}
-
-.button {
-  padding: 0.9rem 1.8rem;
-  border-radius: 14px;
-  border: none;
-  background: #ffffff;
-  color: #07070f;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
-}
-
-.button:hover {
-  opacity: 0.88;
-  transform: translateY(-2px);
-}
-
-.button:active {
-  transform: translateY(0);
-}
-
-.thanks {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 1rem;
-  padding: 0.9rem 0;
-  letter-spacing: 0.01em;
+@media (max-width: 480px) {
+  .tagline { font-size: 0.9rem; max-width: 280px; }
+  .btn { font-size: 0.93rem; padding: 0.6rem 0.6rem 0.6rem 1.4rem; }
+  .btn-icon { width: 34px; height: 34px; }
 }
 </style>
