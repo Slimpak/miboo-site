@@ -410,11 +410,7 @@ onBeforeUnmount(() => clearTimeout(openTimer))
   border-radius: 50%;
   padding: 4px;
   background: var(--rainbow-conic);
-  animation: capsule-spin 3.2s linear infinite, wobble 0.5s ease-in-out infinite;
-}
-
-@keyframes capsule-spin {
-  to { filter: hue-rotate(360deg); }
+  animation: wobble 0.5s ease-in-out infinite;
 }
 
 @keyframes wobble {
