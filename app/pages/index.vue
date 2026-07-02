@@ -1,403 +1,401 @@
 <template>
-  <div class="page">
-
-    <!-- Scrolling background rows -->
-    <div class="bg" aria-hidden="true">
-      <div v-for="i in 11" :key="i" class="row" :class="`row-${i}`">
-        <div class="track" :class="{ reverse: i % 2 === 0 }">
-          <span class="track-inner">{{ bgText }}</span>
-          <span class="track-inner">{{ bgText }}</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Header -->
-    <header class="header">
-      <div class="logo">
-        <span class="logo-text">Miboo</span>
-        <div class="logo-drip-bar">
-          <i class="logo-drip" style="--x:18%;--h:16px;--w:8px" />
-          <i class="logo-drip" style="--x:32%;--h:26px;--w:11px" />
-          <i class="logo-drip" style="--x:48%;--h:14px;--w:7px" />
-          <i class="logo-drip" style="--x:62%;--h:22px;--w:9px" />
-          <i class="logo-drip" style="--x:76%;--h:18px;--w:8px" />
-        </div>
-      </div>
-      <div class="badge">
-        <span class="badge-dot" />
-        Concept draft
-      </div>
-    </header>
-
-    <!-- Center content -->
-    <main class="main">
-
-      <!-- Sticker: black panel + drips as one unit -->
-      <div class="sticker">
-        <div class="sticker-body">
-          <h1 class="cs">Coming<br>Soon</h1>
-        </div>
-        <div class="sticker-drips">
-          <i class="drip" style="--x:8%;  --h:44px; --w:12px" />
-          <i class="drip" style="--x:18%; --h:72px; --w:16px" />
-          <i class="drip" style="--x:30%; --h:38px; --w:10px" />
-          <i class="drip" style="--x:42%; --h:60px; --w:14px" />
-          <i class="drip" style="--x:54%; --h:50px; --w:13px" />
-          <i class="drip" style="--x:65%; --h:80px; --w:17px" />
-          <i class="drip" style="--x:76%; --h:42px; --w:11px" />
-          <i class="drip" style="--x:87%; --h:58px; --w:13px" />
-          <i class="drip" style="--x:95%; --h:34px; --w:9px" />
-        </div>
-      </div>
-
-      <p class="tagline">A playful collectible world is on the way.</p>
-
-      <div class="actions">
-        <button class="btn">
-          Notify me
-          <span class="btn-icon">
-            <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-              <path d="M3 8h10M9 3l5 5-5 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+  <div>
+    <!-- ═══ Poster hero ═══ -->
+    <section class="hero">
+      <div class="wrap">
+        <h1 class="poster-title hero-title">
+          Unbox
+          <span class="hero-circle" style="background: var(--teal)">
+            <RenderSlot :tone="tropikTone" :size="circleSize" outer="transparent" />
           </span>
-        </button>
+          your<br />
+          next <span style="color: var(--teal)">tiny</span>
+          <span class="hero-circle" style="background: var(--yellow)">
+            <RenderSlot :tone="sonceTone" :size="circleSize" outer="transparent" />
+          </span>
+          <br />
+          <span style="color: var(--coral)">friend</span><span style="color: var(--lavender)">.</span>
+        </h1>
 
-        <NuxtLink to="/activate" class="demo-link">Спробувати демо активації коду →</NuxtLink>
+        <div class="hero-bottom">
+          <div class="hero-ctas">
+            <NuxtLink to="/shop" class="pill pill--navy pill--lg">Купити онлайн</NuxtLink>
+            <NuxtLink to="/activate" class="pill pill--outline pill--lg">Активувати код</NuxtLink>
+          </div>
+          <p class="hero-note">
+            Колекційні flexi-фігурки 5,5 см з рухомими сегментами.
+            У кожній секретці — картка з кодом на ексклюзив.
+          </p>
+        </div>
       </div>
-    </main>
+    </section>
 
+    <ScallopDivider from="var(--bg)" to="var(--teal)" />
+
+    <!-- ═══ Два способи ═══ -->
+    <section class="ways">
+      <div class="wrap ways-grid">
+        <div class="way">
+          <div class="way-num" style="color: var(--pink)">01</div>
+          <h2 class="way-title">Секретка — сюрприз</h2>
+          <p class="way-text">
+            Непрозорий пакетик: випадкова фігурка серії та картка колекціонера
+            з унікальним кодом. Єдиний шлях до рідкісних і секретних «?».
+          </p>
+          <div class="way-actions">
+            <NuxtLink to="/shop#secrets" class="pill pill--white pill--md">До секреток</NuxtLink>
+            <span class="way-price">149 грн*</span>
+          </div>
+        </div>
+
+        <div class="ways-sep" aria-hidden="true" />
+
+        <div class="way">
+          <div class="way-num" style="color: var(--yellow)">02</div>
+          <h2 class="way-title">Набери сам — точний вибір</h2>
+          <p class="way-text">
+            Обери улюблених з відкритих бочок — вони наповнять твій пакет.
+            5 фігурок — 250 грн, повний пакет — 600 грн. Лише звичайні.
+          </p>
+          <div class="way-actions">
+            <NuxtLink to="/shop#build" class="pill pill--outline-white pill--md">Зібрати пакет</NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <ScallopDivider from="var(--teal)" to="#FFFFFF" />
+
+    <!-- ═══ Як це працює ═══ -->
+    <section class="how">
+      <div class="wrap">
+        <h2 class="section-title">Як це працює</h2>
+        <div class="steps">
+          <div v-for="step in STEPS" :key="step.n" class="step">
+            <div class="step-num" :style="step.style">{{ step.n }}</div>
+            <div class="step-title">{{ step.title }}</div>
+            <div class="step-text">{{ step.text }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Серії ═══ -->
+    <section id="series" class="series">
+      <div class="wrap">
+        <div class="series-head">
+          <h2 class="section-title">Чотири серії. Збери всіх!</h2>
+          <NuxtLink to="/shop#secrets" class="series-all">Всі серії →</NuxtLink>
+        </div>
+
+        <div class="arches">
+          <div
+            v-for="(s, i) in SERIES"
+            :key="s.id"
+            class="arch"
+            :class="{ shifted: i % 2 === 1 }"
+            :style="{ background: s.color }"
+          >
+            <RenderSlot :tone="s.tone" :size="96" />
+            <div class="arch-name" :style="{ color: s.onColor }">«{{ s.name }}»</div>
+            <div class="arch-badge" :style="{ background: s.badgeBg, color: s.badgeColor }">
+              {{ s.figures }} фігурок
+            </div>
+          </div>
+
+          <div class="arch arch-secret">
+            <div class="secret-circle">?</div>
+            <div class="arch-name" style="color: #fff">Секретні</div>
+            <div class="arch-badge arch-badge-rainbow">тільки з коду</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Де купити teaser ═══ -->
+    <section class="near">
+      <div class="wrap near-grid">
+        <div class="near-info">
+          <h2 class="poster-title near-title">Miboo вже поруч<span style="color: var(--teal)">.</span></h2>
+          <p class="near-text">
+            Секретки та бочки «Набери сам» — у магазинах-партнерах твого міста.
+            Або замовляй онлайн з доставкою по всій Україні.
+          </p>
+          <div class="near-ctas">
+            <NuxtLink to="/where-to-buy" class="pill pill--navy pill--md">Де купити</NuxtLink>
+            <NuxtLink to="/shop" class="pill pill--outline pill--md">Купити онлайн</NuxtLink>
+          </div>
+        </div>
+
+        <NuxtLink to="/where-to-buy" class="near-map" aria-label="Мапа магазинів-партнерів">
+          <span class="near-map-label">мапа магазинів-партнерів</span>
+          <span class="near-pin" style="top: 34%; left: 28%; background: var(--coral)" />
+          <span class="near-pin" style="top: 58%; left: 52%; background: var(--teal)" />
+          <span class="near-pin" style="top: 26%; left: 66%; background: var(--yellow)" />
+        </NuxtLink>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-const bgText = 'Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   Miboo  ≡   '
+import { SERIES, seriesById } from '~/data/series'
+
+useHead({ title: 'Miboo Toys — колекційні flexi-фігурки' })
+
+const tropikTone = seriesById('tropik')!.tone
+const sonceTone = seriesById('sonce')!.tone
+
+const circleSize = 104
+
+const STEPS = [
+  { n: '1', style: { color: 'var(--teal)' }, title: 'Купи секретку', text: 'Онлайн або в магазині-партнері' },
+  { n: '2', style: { color: 'var(--coral)' }, title: 'Відкрий пакетик', text: 'Хто там — дізнаєшся тільки відкривши' },
+  { n: '3', style: { color: 'var(--lavender)' }, title: 'Знайди картку', text: 'Всередині — картка з унікальним кодом' },
+  { n: '4', style: { color: 'var(--yellow)' }, title: 'Активуй на сайті', text: '10 секунд — і готово' },
+  {
+    n: '5',
+    style: {
+      background: 'linear-gradient(105deg, #F0A0B4, #E5B96A, #5BBFA0, #7FA9E8, #B490E0)',
+      '-webkit-background-clip': 'text',
+      'background-clip': 'text',
+      color: 'transparent',
+    },
+    title: 'Отримай ексклюзив',
+    text: 'Доступ до секретного персонажа',
+  },
+]
 </script>
 
 <style scoped>
-/* ─── Page ─── */
-.page {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
+/* ─── Hero ─── */
+.hero {
+  background: var(--bg);
+  padding: clamp(28px, 4vw, 48px) 0 8px;
+}
+
+.hero-title {
+  font-size: clamp(44px, 8.4vw, 108px);
+  line-height: 1.02;
+}
+
+.hero-circle {
+  display: inline-flex;
+  width: 0.96em;
+  height: 0.96em;
+  border-radius: 50%;
+  vertical-align: middle;
   align-items: center;
-  overflow: hidden;
-  /* Electric blue radial gradient — matches the vibrant blue glow in the ref */
-  background:
-    radial-gradient(ellipse 90% 70% at 28% 50%, rgba(30, 30, 180, 0.55) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 50% at 75% 55%, rgba(80, 20, 160, 0.3) 0%, transparent 60%),
-    radial-gradient(ellipse 120% 120% at 50% 50%, #0c0c50 0%, #08083a 40%, #050528 75%, #030318 100%);
+  justify-content: center;
+  margin: 0 0.04em;
 }
 
-/* ─── Scrolling background ─── */
-.bg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  pointer-events: none;
-  user-select: none;
+.hero-circle :deep(.slot) {
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.row {
-  flex: 1;
-  overflow: hidden;
+.hero-bottom {
   display: flex;
   align-items: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-style: italic;
-  font-weight: 800;
-  font-size: clamp(1.5rem, 2.8vw, 2.6rem);
-  white-space: nowrap;
-  letter-spacing: 0.04em;
-}
-
-/* Alternating blue/purple rows with 2 orange accent rows */
-.row-1  { color: #5566ff; opacity: 0.28; }
-.row-2  { color: #7755ee; opacity: 0.22; }
-.row-3  { color: #4455ee; opacity: 0.30; }
-.row-4  { color: #dd6622; opacity: 0.28; }
-.row-5  { color: #6644dd; opacity: 0.24; }
-.row-6  { color: #4466ff; opacity: 0.32; }
-.row-7  { color: #8844ee; opacity: 0.22; }
-.row-8  { color: #ee7722; opacity: 0.26; }
-.row-9  { color: #5577ff; opacity: 0.28; }
-.row-10 { color: #6655ee; opacity: 0.24; }
-.row-11 { color: #3355dd; opacity: 0.30; }
-
-.track {
-  display: flex;
-  animation: scroll-left 32s linear infinite;
-}
-
-.track.reverse {
-  animation: scroll-right 38s linear infinite;
-}
-
-.track-inner {
-  flex-shrink: 0;
-}
-
-@keyframes scroll-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes scroll-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
-}
-
-/* ─── Header ─── */
-.header {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  padding: 1.4rem 1.75rem;
-  display: flex;
-  align-items: flex-start;
   justify-content: space-between;
+  gap: 32px;
+  margin-top: clamp(20px, 2.5vw, 28px);
+  padding-bottom: clamp(20px, 2.5vw, 28px);
+  flex-wrap: wrap;
 }
 
-/* ─── Logo ─── */
-.logo {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: stretch;
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.hero-note {
+  font: 600 14px/1.6 var(--font-body);
+  color: var(--muted);
+  max-width: 380px;
+  text-align: right;
 }
 
-.logo-text {
-  background: #0a0a0a;
-  color: #ffffff;
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 700;
-  font-size: 1.45rem;
-  padding: 0.5rem 1.25rem 0.6rem;
-  border-radius: 12px 12px 0 0;
-  line-height: 1;
-  display: block;
+/* ─── Два способи ─── */
+.ways { background: var(--teal); padding: clamp(40px, 5vw, 64px) 0; }
+
+.ways-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
 }
 
-/* Thin bar at the base of the logo that the drips hang from */
-.logo-drip-bar {
-  height: 8px;
-  background: #0a0a0a;
-  border-radius: 0 0 4px 4px;
-  position: relative;
-  overflow: visible;
-}
+.ways-sep { background: rgba(255, 255, 255, 0.35); }
 
-.logo-drip {
-  position: absolute;
-  top: 100%;
-  left: var(--x);
-  width: var(--w);
-  height: var(--h);
-  background: #0a0a0a;
-  border-radius: 0 0 50% 50% / 0 0 100% 100%;
-  transform: translateX(-50%);
-  display: block;
-}
-
-.logo-drip::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(var(--w) + 2px);
-  height: calc(var(--w) + 2px);
-  border-radius: 50%;
-  background: #0a0a0a;
-}
-
-/* ─── Badge ─── */
-.badge {
+.way {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(8, 8, 28, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.8rem;
-  font-weight: 500;
-  padding: 0.42rem 1rem;
-  border-radius: 999px;
-  backdrop-filter: blur(12px);
-  letter-spacing: 0.01em;
-  margin-top: 0.15rem;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
 }
 
-.badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #f97316;
-  flex-shrink: 0;
+.way:first-child { padding-right: 48px; }
+.way:last-child { padding-left: 48px; }
+
+.way-num { font: 800 clamp(56px, 7vw, 88px)/1 var(--font-display); }
+.way-title { font: 900 clamp(24px, 2.4vw, 30px) var(--font-body); color: #fff; }
+.way-text { font: 600 15px/1.65 var(--font-body); color: #e2f9f5; }
+
+.way-actions { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+.way-price { font: 800 15px var(--font-body); color: #fff; }
+
+/* ─── Як це працює ─── */
+.how { background: #fff; padding: clamp(40px, 4.5vw, 56px) 0; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-top: 30px;
 }
 
-/* ─── Main ─── */
-.main {
-  position: relative;
-  z-index: 10;
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 22px;
+  border-left: 1px solid var(--line);
+}
+
+.step:first-child { padding-left: 0; border-left: none; }
+.step:last-child { padding-right: 0; }
+
+.step-num { font: 800 56px/1 var(--font-display); }
+.step-title { font: 800 16px var(--font-body); color: var(--navy); }
+.step-text { font: 600 13px/1.5 var(--font-body); color: var(--muted); }
+
+/* ─── Серії ─── */
+.series { background: var(--bg); padding: clamp(40px, 4.5vw, 56px) 0 clamp(44px, 5vw, 64px); }
+
+.series-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.series-all { font: 800 15px var(--font-body); color: var(--navy); }
+.series-all:hover { color: var(--teal); }
+
+.arches { display: flex; gap: 14px; }
+
+.arch {
   flex: 1;
+  border-radius: 120px 120px 24px 24px;
+  padding: 20px 16px 22px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1rem 2rem 5rem;
-  animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+  min-width: 0;
 }
 
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+.arch.shifted { margin-top: 24px; }
 
-/* ─── Sticker (black panel + drips as one unit) ─── */
-.sticker {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: stretch;
-  text-align: center;
-}
+.arch-name { font: 900 18px var(--font-body); text-align: center; }
 
-.sticker-body {
-  background: #0a0a0a;
-  border-radius: 28px 28px 0 0;
-  padding: 1.25rem 2.5rem 1.5rem;
-}
-
-.cs {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 700;
-  font-size: clamp(5rem, 13vw, 10.5rem);
-  line-height: 0.9;
-  color: #ffffff;
-  -webkit-text-stroke: clamp(6px, 1vw, 10px) #0a0a0a;
-  paint-order: stroke fill;
-  letter-spacing: -0.01em;
-}
-
-/* The drip bar — black strip that the drips hang from */
-.sticker-drips {
-  background: #0a0a0a;
-  position: relative;
-  height: 16px; /* thick base */
-  border-radius: 0 0 8px 8px;
-  overflow: visible;
-}
-
-/* Drips hang down from the sticker-drips bar */
-.drip {
-  position: absolute;
-  top: 100%;
-  left: var(--x);
-  width: var(--w);
-  height: var(--h);
-  background: #0a0a0a;
-  border-radius: 0 0 50% 50% / 0 0 100% 100%;
-  transform: translateX(-50%);
-  display: block;
-}
-
-.drip::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(var(--w) + 3px);
-  height: calc(var(--w) + 3px);
-  border-radius: 50%;
-  background: #0a0a0a;
-}
-
-/* ─── Tagline ─── */
-.tagline {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 1rem;
-  text-align: center;
-  max-width: 360px;
-  line-height: 1.65;
-  margin-top: 1rem;
-}
-
-/* ─── Button ─── */
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  background: #f97316;
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0.65rem 0.65rem 0.65rem 1.75rem;
-  border: none;
+.arch-badge {
+  font: 800 11px var(--font-body);
+  padding: 4px 12px;
   border-radius: 999px;
-  cursor: pointer;
-  transition: transform 0.15s ease, filter 0.15s ease;
-  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
-}
+.arch-secret { background: var(--navy); }
 
-.btn:active {
-  transform: translateY(0);
-  filter: brightness(0.93);
-}
-
-.btn-icon {
-  width: 38px;
-  height: 38px;
+.secret-circle {
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  background: #111111;
+  background: var(--navy-soft);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  font: 800 44px var(--font-display);
+  color: #8f97d8;
 }
 
-/* ─── Actions (button + demo link) ─── */
-.actions {
+.arch-badge-rainbow { background: var(--rainbow); color: var(--navy); }
+
+/* ─── Де купити teaser ─── */
+.near { background: #fff; padding: clamp(44px, 5vw, 64px) 0; }
+
+.near-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+}
+
+.near-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.1rem;
+  gap: 16px;
+  align-items: flex-start;
 }
 
-.demo-link {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.92rem;
-  font-weight: 500;
-  text-decoration: none;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
-  padding-bottom: 2px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+.near-title { font-size: clamp(34px, 4.4vw, 56px); line-height: 1.05; }
+
+.near-text { font: 600 15px/1.65 var(--font-body); color: var(--muted); max-width: 480px; }
+
+.near-ctas { display: flex; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
+
+.near-map {
+  position: relative;
+  display: block;
+  height: 300px;
+  border-radius: 24px;
+  background: repeating-linear-gradient(45deg, #e3f3f0 0 12px, #f3fbf9 12px 24px);
+  border: 2px dashed #a9d2ca;
+  overflow: hidden;
 }
 
-.demo-link:hover {
-  color: #ffffff;
-  border-color: #f97316;
+.near-map-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #fff;
+  font: 600 11px ui-monospace, Menlo, monospace;
+  color: #5f968d;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.near-pin {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 10px rgba(30, 50, 45, 0.25);
 }
 
 /* ─── Responsive ─── */
-@media (max-width: 768px) {
-  .row { font-size: clamp(1.1rem, 4vw, 1.7rem); opacity: 0.18; }
-  .header { padding: 1rem 1.25rem; }
-  .sticker-body { padding: 1rem 1.5rem 1.25rem; }
-  .main { gap: 1.5rem; padding-bottom: 3rem; }
-  .cs { -webkit-text-stroke: clamp(5px, 1.5vw, 8px) #0a0a0a; }
+@media (max-width: 900px) {
+  .hero-note { text-align: left; }
+
+  .ways-grid { grid-template-columns: 1fr; gap: 36px; }
+  .ways-sep { display: none; }
+  .way:first-child { padding-right: 0; }
+  .way:last-child { padding-left: 0; }
+
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 24px 0; }
+  .step { border-left: none; padding: 0; }
+
+  .arches {
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+  }
+  .arch { flex: 0 0 180px; scroll-snap-align: start; }
+  .arch.shifted { margin-top: 0; }
+
+  .near-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 480px) {
-  .tagline { font-size: 0.9rem; max-width: 280px; }
-  .btn { font-size: 0.93rem; padding: 0.6rem 0.6rem 0.6rem 1.4rem; }
-  .btn-icon { width: 34px; height: 34px; }
+@media (max-width: 560px) {
+  .steps { grid-template-columns: 1fr; }
 }
 </style>

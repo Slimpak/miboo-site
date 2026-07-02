@@ -6,8 +6,6 @@
     <div
       class="ph"
       :style="{
-        width: `${inner}px`,
-        height: `${inner}px`,
         background: `repeating-linear-gradient(45deg, ${tone.a} 0 7px, ${tone.b} 7px 14px)`,
         borderColor: tone.dash,
         color: tone.text,
@@ -25,7 +23,7 @@ import type { RenderTone } from '~/data/series'
  * Круглий плейсхолдер під рендер фігурки. Коли з'являться реальні
  * зображення — міняємо розмітку лише тут.
  */
-const props = withDefaults(
+withDefaults(
   defineProps<{
     tone: RenderTone
     size?: number
@@ -35,8 +33,6 @@ const props = withDefaults(
   }>(),
   { size: 96, outer: '#FFFFFF', label: 'рендер' },
 )
-
-const inner = computed(() => Math.round(props.size * 0.76))
 </script>
 
 <style scoped>
@@ -49,6 +45,8 @@ const inner = computed(() => Math.round(props.size * 0.76))
 }
 
 .ph {
+  width: 76%;
+  height: 76%;
   border-radius: 50%;
   border: 2px dashed;
   display: flex;
