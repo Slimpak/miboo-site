@@ -47,6 +47,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Крупніший масштаб на десктопі: макет 1280px виглядає дрібним на широких екранах */
+@media (min-width: 1200px) {
+  body { zoom: 1.25; }
+}
+
 button {
   font-family: inherit;
   border: none;
